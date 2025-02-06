@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { postBooks, getBookStatus } from "../features/bookSlice.js";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function AddBook() {
   //FORM DATA STATE
@@ -22,17 +22,23 @@ export default function AddBook() {
 
     try {
       dispatch(postBooks(formData));
-      setFormData({
-        bookName: "",
-        author: "",
-        genre: "",
-      });
-      console.log("Posted");
-    } catch (error) {
+      
+     } catch (error) {
       console.log(error);
       throw error;
     }
   };
+
+  useEffect(() => {
+    if (addStatus === "success") {
+        setFormData({
+          bookName: "",
+          author: "",
+          genre: "",
+        });
+
+      }
+  },[addStatus, dispatch])
 
   return (
     <>

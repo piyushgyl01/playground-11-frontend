@@ -6,6 +6,7 @@ import {
   deleteBooks,
   getBookStatus,
 } from "./bookSlice.js";
+import { Link } from "react-router";
 
 export default function BookList() {
   const [deletingId, setDeletingId] = useState(null);
@@ -35,13 +36,21 @@ export default function BookList() {
       <ul className="list-group">
         {fetchStatus === "loading" && <p>Loading...</p>}
         {fetchStatus === "error" && <p>Error occured while fetcing the data</p>}
-         {deleteStatus === "error" && <p>Error occured while deleting the book</p>}
+        {deleteStatus === "error" && (
+          <p>Error occured while deleting the book</p>
+        )}
         {books.length === 0 && <p>No Books Found</p>}
         {books.map((book) => (
           <li className="list-group-item" key={book._id}>
             {book.title || book.bookName} by {book.author}
+            <Link
+              className="btn btn-primary btn-sm ms-2"
+              to={`/books/${book._id}/${book.bookName}/update-book`}
+            >
+              Edit
+            </Link>
             <button
-              className="btn btn-danger btn-sm ms-5"
+              className="btn btn-danger btn-sm ms-2"
               onClick={() => handleDelete(book._id)}
               disabled={deletingId === book._id}
             >

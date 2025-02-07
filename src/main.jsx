@@ -29,7 +29,7 @@ const router = createBrowserRouter([
         element: <AddBook />,
       },
       {
-        path: "/update-book",
+        path: "/books/:id/:bookName/update-book",
         element: <UpdateBook />,
       },
       {

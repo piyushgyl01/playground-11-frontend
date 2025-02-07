@@ -42,12 +42,13 @@ export const postBooks = createAsyncThunk(
 //UPDATE BOOK
 export const updateBooks = createAsyncThunk(
   "books/updateBooks",
-  async ({ id, bookData }) => {
+  async ({ id, formData }) => {
     try {
       const response = await axios.put(
         `https://playground-011-backend.vercel.app/books/${id}`,
-        bookData
+        formData
       );
+      console.log('Update Response:', response.data); // Add this for debugging
 
       return response.data;
     } catch (error) {
@@ -144,11 +145,15 @@ export const bookSlice = createSlice({
 });
 
 export const getAllBooks = (state) => state.books.books;
-export const getBookStatus = (state) => ({
-  fetchStatus: state.books.fetchStatus,
-  addStatus: state.books.addStatus,
-  updateStatus: state.books.updateStatus,
-  deleteStatus: state.books.deleteStatus,
-});
+
+export const getBookStatus = createSelector(
+  (state) => state.books.fetchStatus,
+  (state) => state.books.addStatus,
+  (state) => state.books.deleteStatus,
+  (state) => state.books.updateStatus,
+  (fetchStatus, addStatus, deleteStatus, updateStatus) => ({
+    fetchStatus, addStatus, deleteStatus, updateStatus
+  })
+);
 
 export default bookSlice.reducer;

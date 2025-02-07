@@ -6,7 +6,7 @@ export default function Navbar() {
     <>
       <nav className="navbar navbar-expand-lg bg-body-tertiary">
         <div className="container-fluid">
-          <Link class="navbar-brand" to="/">
+          <Link className="navbar-brand" to="/">
             Book Management System
           </Link>
           <button
